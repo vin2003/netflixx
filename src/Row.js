@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import instance from "./axios";
 import YouTube from 'react-youtube';
 import movieTrailer from 'movie-trailer';
+import './Row.css';
 
 const base_url = 'https://image.tmdb.org/t/p/original/';
 
@@ -14,6 +15,7 @@ function Row ({ title, fetchUrl, isLargeRow }) {
     useEffect(() => {
         async function fetchData() {
             const request = await instance.get(fetchUrl);
+            console.log(fetchUrl);
             setMovies(request.data.results);
             return request;
         }
@@ -35,6 +37,7 @@ function Row ({ title, fetchUrl, isLargeRow }) {
         } else {
             movieTrailer(movie?.name || "")
             .then(url => {
+                console.log("::: " + url);
                 // https://www.youtube.com/watch?v=XtMThy8QKqU
                 // const urlParams = new URL(url).search; // '?v=XtMThy8QKqU'
                 const urlParams = new URLSearchParams(new URL(url).search);
